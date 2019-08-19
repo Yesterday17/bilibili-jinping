@@ -142,15 +142,15 @@ def guess_reason(aid, info):
 
 def read_start():
     start = 2
-    if os.path.exists('result/start.txt'):
-        file = open('result/start.txt', 'r')
+    if os.path.exists('docs/start.txt'):
+        file = open('docs/start.txt', 'r')
         start = int(file.readline())
         file.close()
     return start
 
 
 def update_start(aid):
-    file = open('result/start.txt', 'w')
+    file = open('docs/start.txt', 'w')
     file.write(str(aid))
     file.close()
 
@@ -161,7 +161,7 @@ def encode(to_encode=''):
 
 def write_file(aid, reply, info):
     print('[INFO] av%d disabled comment' % aid)
-    file = open('result/%d.md' % aid, 'w')
+    file = open('docs/%d.md' % aid, 'w')
 
     def write(content, to_encode=True):
         if to_encode:
