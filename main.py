@@ -27,7 +27,7 @@ def json_get(url):
         else:
             print('[Error] %d, %s' % (req.status_code, url))
             print('[Server] %s' % proxy_addr)
-            proxy_list.remove(proxy_addr)
+            proxy_list.remove(proxy_addr[7:])
             return json_get(url)
     except:
         return json_get(url)
