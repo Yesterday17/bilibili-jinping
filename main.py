@@ -2,6 +2,7 @@ import time
 import os.path
 import random
 import requests
+import sys
 from multiprocessing import Pool
 
 latest_aid = 64399007  # till Mon Aug 19 2019 13:50:56 GMT+0800 (中国标准时间)
@@ -172,9 +173,7 @@ def write_file(aid, reply, info):
 
     write('## 基本信息\n')
     write('### 标题\n%s  \n' % info['data']['title'])
-    write('### 简介\n```\n')
-    write(info['data']['desc'], False)
-    write('\n```\n')
+    write('### 简介\n%s  \n' % info['data']['desc'].replace('\n', '  \n'))
     write('### UP\n[%s](https://space.bilibili.com/%d)  \n' % (
         info['data']['owner']['name'], info['data']['owner']['mid']))
     write('### 投稿时间\n%s  \n' % time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(info['data']['pubdate'])))
@@ -221,6 +220,12 @@ def main_work(aid):
 
 
 def main():
+    # 单纯的下载模式
+    if len(sys.argv) > 1:
+        with Pool(16) as p:
+            p.map(main_work, map(lambda x: int(x), sys.argv[1:]))
+        return
+
     aid = read_start()
     while aid <= latest_aid:
         range_end = min(aid + concurrent, latest_aid + 1)
