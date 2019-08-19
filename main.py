@@ -6,6 +6,8 @@ import sys
 from multiprocessing import Pool
 from settings import *
 
+# from word_list import *
+from word_list_encoded import *
 
 def json_get(url):
     try:
@@ -47,9 +49,6 @@ def video_info(aid):
 
 
 def guess_reason(aid, info):
-    # from word_list import *
-    from word_list_encoded import *
-
     reason_list = []
 
     if simple_word_list[0] in str(aid) or simple_word_list[1] in str(aid):
